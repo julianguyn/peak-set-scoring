@@ -1,6 +1,6 @@
 opname: "PDXs_20k"
 metadatafile: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/metadata/pdx_metadata.txt
-consensusfile: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/results/PDXs/consensus/PeakCalls_unionPeakSet.bed
+SUMMIT_DIR: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/rawdata/ATAC-cfDNA/summits-allSamples
 PEAKS_DIR: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/rawdata/ATACSeq/PDXs/peaks/
 peaks_extension: "_peaks.filtered.merged.narrowPeak"
 hg38TEs_DIR: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/procdata/ARCHEs/20k_sites/

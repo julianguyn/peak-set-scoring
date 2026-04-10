@@ -1,8 +1,11 @@
 __default__:
     params: "--export=ALL -p all -t 12:00:00 --mem=6G"
 
+get_consensuspeaks:
+    params: "--export=ALL -p all -t 8:00:00 --mem=30G -c 2"
+
 generate_binarymatrix:
-    params: "--export=ALL -p himem -t 12:00:00 --mem=60G  -c 2"
+    params: "--export=ALL -p himem -t 12:00:00 --mem=60G -c 2"
 
 run_chromvar:
     params: "--export=ALL -p veryhimem -t 12:00:00 --mem=180G -c 2"

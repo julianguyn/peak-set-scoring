@@ -8,15 +8,13 @@ import itertools
 ##### set minimum snakemake version #####
 min_version("5.5.4")
 
-
-
-
 SCRIPTS_DIR = "scripts"
+CONSENSUS_DIR = "matrix"
 MATRIX_DIR = "matrix"
 CHROM_DIR = "chromvar"
 PLOTS_DIR = "plots_chromvar"
 
-configfile: "config.yaml"
+configfile: "../config/config.yaml"
 
 ######Groups##########
 GROUPS=[]
@@ -53,10 +51,20 @@ rule all:
 # ==============================================================================
 # Rules
 # ==============================================================================
+rule get_consensuspeaks:
+    input:
+        script = path.join(SCRIPTS_DIR, "consensus_corces.R"),
+        summit = config["SUMMIT_DIR"]
+    output:
+        consensusfile = path.join(config["RESULTS_DIR"], CONSENSUS_DIR, config["opname"]+".consensus.PeakCalls_unionPeakSet.bed")
+    shell:
+        "{SIF_EXEC} Rscript {input.script} {input.summit} {output.consensusfile}"
+
+
 rule generate_binarymatrix:
     input:
         script = path.join(SCRIPTS_DIR, "01_SLURM_generate_binarymat.sh"),
-        consensusfile = config["consensusfile"],
+        consensusfile = path.join(config["RESULTS_DIR"], CONSENSUS_DIR, config["opname"]+".consensus.PeakCalls_unionPeakSet.bed"),
         PEAKS_DIR = config["PEAKS_DIR"],
         hg38TEs_DIR = config["hg38TEs_DIR"],
     output:
