@@ -1,0 +1,8 @@
+opname: "cells_50k"
+metadatafile: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/metadata/cell_metadata.txt
+consensusfile: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/results/cell_lines/consensus/PeakCalls_unionPeakSet.bed
+PEAKS_DIR: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/rawdata/ATACSeq/cell_lines/peaks/
+peaks_extension: "_peaks.filtered.merged.narrowPeak"
+hg38TEs_DIR: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/procdata/ARCHEs/50k_sites/
+hg38TEs_extension: ".bed"
+qval: 0.01
