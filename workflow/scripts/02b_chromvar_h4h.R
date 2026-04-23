@@ -108,8 +108,13 @@ run_chromvar=function(peakrds,
     ## compute deviation
     #----------------------------------------------------------------
     set.seed(2017)
+
+    # get background
+    tcga_counts_filtered <- readRDS("/cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/results/TCGA/50k/chromvar/TCGA_50k.counts_filtered.rds")
+    bg <- getBackgroundPeaks(object = tcga_counts_filtered)
+
     print("Computing Deviation")
-    dev <- computeDeviations(object = counts_filtered, annotations = anno_ix)
+    dev <- computeDeviations(object = counts_filtered, annotations = anno_ix, background_peaks = bg)
     save(dev,file=paste0(outdir, "/chromvar/", opname, ".devobj.Rdata"))
 
     z.scores = deviationScores(dev) ## deviation Z-score
