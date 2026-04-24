@@ -36,6 +36,7 @@ if (length(args)==4) {
   peaksbinarymatrepeats <- as.character(args[2])
   opname <- as.character(args[3])
   outdir <- as.character(args[4])
+  background <- as.character(args[5])
 
 } else if (length(args)==0) {
   stop("Please provide the following arguments - Merged peak file, Directory containing all peak files, pattern to identify peak files,
@@ -89,7 +90,7 @@ run_chromvar=function(peakrds,
 
     fragment_counts <- addGCBias(fragment_counts, genome = BSgenome.Hsapiens.UCSC.hg38)
     counts_filtered <- filterPeaks(fragment_counts,min_fragments_per_peak = 1, non_overlapping = TRUE)
-    save(counts_filtered,file=paste0(outdir, "/chromvar/", opname, ".counts_filtered.Rdata"))
+    saveRDS(counts_filtered,file=paste0(outdir, "/chromvar/", opname, ".counts_filtered.rds"))
     rm(fragment_counts)
 
     # #----------------------------------------------------------------
@@ -110,11 +111,17 @@ run_chromvar=function(peakrds,
     set.seed(2017)
 
     # get background
-    tcga_counts_filtered <- readRDS("/cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/results/TCGA/50k/chromvar/TCGA_50k.counts_filtered.rds")
-    bg <- getBackgroundPeaks(object = tcga_counts_filtered)
+    if (background != "") {
+      print("Loading in background")
+      tcga_counts_filtered <- readRDS(background)
+      bg <- getBackgroundPeaks(object = tcga_counts_filtered)
+      print("Computing Deviation")
+      dev <- computeDeviations(object = counts_filtered, annotations = anno_ix, background_peaks = bg)
+    } else {
+      print("Computing Deviation")
+      dev <- computeDeviations(object = counts_filtered, annotations = anno_ix)
+    }
 
-    print("Computing Deviation")
-    dev <- computeDeviations(object = counts_filtered, annotations = anno_ix, background_peaks = bg)
     save(dev,file=paste0(outdir, "/chromvar/", opname, ".devobj.Rdata"))
 
     z.scores = deviationScores(dev) ## deviation Z-score

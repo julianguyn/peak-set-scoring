@@ -90,9 +90,10 @@ rule run_chromvar:
         path.join(config["RESULTS_DIR"], CHROM_DIR, config["opname"]+".Deviations.txt")
     params:
         name = config["opname"],
-        results = config["RESULTS_DIR"]
+        results = config["RESULTS_DIR"],
+        background = config["background"]
     shell:
-        "{SIF_EXEC} bash {input.script} {input.peaks_binarymat} {input.peaks_binarymat_repeats} {params.name} {params.results}"
+        "{SIF_EXEC} bash {input.script} {input.peaks_binarymat} {input.peaks_binarymat_repeats} {params.name} {params.results} {params.background}"
         
 rule chromvar_analysis:
     input:
