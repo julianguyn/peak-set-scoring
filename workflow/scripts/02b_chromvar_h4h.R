@@ -31,7 +31,7 @@ source("scripts/chromvar.helper.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args)==4) {
+if (length(args)==5) {
   peaksbinarymat <- as.character(args[1])
   peaksbinarymatrepeats <- as.character(args[2])
   opname <- as.character(args[3])
