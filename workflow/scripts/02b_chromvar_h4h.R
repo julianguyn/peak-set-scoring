@@ -91,6 +91,7 @@ run_chromvar=function(peakrds,
     fragment_counts <- addGCBias(fragment_counts, genome = BSgenome.Hsapiens.UCSC.hg38)
     counts_filtered <- filterPeaks(fragment_counts,min_fragments_per_peak = 1, non_overlapping = TRUE)
     saveRDS(counts_filtered,file=paste0(outdir, "/chromvar/", opname, ".counts_filtered.rds"))
+    save(counts_filtered,file=paste0(outdir, "/chromvar/", opname, ".counts_filtered.RData"))
     rm(fragment_counts)
 
     # #----------------------------------------------------------------
@@ -114,7 +115,56 @@ run_chromvar=function(peakrds,
     if (background != "") {
       print("Loading in background")
       tcga_counts_filtered <- readRDS(background)
-      bg <- getBackgroundPeaks(object = tcga_counts_filtered)
+      # get common peaks
+      common_peaks <- intersect(rownames(counts_filtered), rownames(tcga_counts_filtered))
+      print(paste("Keeping", length(common_peaks), "common peaks"))
+      counts_filtered <- counts_filtered[common_peaks,]
+      tcga_counts_filtered <- tcga_counts_filtered[common_peaks,]
+      # rebuild
+      cbias <- rowData(counts_filtered)$bias
+      cpeaks <- rownames(counts_filtered)
+      cpeaks <- gsub("^(chr[^_]+)_([0-9]+)_([0-9]+)$", "\\1:\\2-\\3", cpeaks)
+      cgr <- GRanges(cpeaks)
+      mcols(cgr)$bias <- cbias
+      print("checking counts_filtered -- after rebuild")
+      counts_filtered <- SummarizedExperiment(
+        assays    = list(counts = assay(counts_filtered, "counts")),
+        rowRanges = cgr,
+        colData   = colData(counts_filtered)
+      )
+      print(length(rowRanges(counts_filtered)))
+      print(nrow(assay(counts_filtered)))
+      print(head(rownames(counts_filtered)))
+      validObject(counts_filtered)
+      
+      #rebuild
+      cbias <- rowData(tcga_counts_filtered)$bias
+      cpeaks <- rownames(tcga_counts_filtered)
+      cpeaks <- gsub("^(chr[^_]+)_([0-9]+)_([0-9]+)$", "\\1:\\2-\\3", cpeaks)
+      cgr <- GRanges(cpeaks)
+      mcols(cgr)$bias <- cbias
+      print("checking tcga -- after rebuild")
+      tcga_counts_filtered_clean <- SummarizedExperiment(
+        assays    = list(counts = assay(tcga_counts_filtered, "counts")),
+        rowRanges = cgr,
+        colData   = colData(tcga_counts_filtered)
+      )
+      print(length(rowRanges(tcga_counts_filtered_clean)))
+      print(nrow(assay(tcga_counts_filtered_clean)))
+      print(head(rownames(tcga_counts_filtered_clean)))
+      validObject(tcga_counts_filtered_clean)
+
+      # rebuild annotations
+      print("rebuilding annotations")
+      my_annotation_df <- readRDS(repeatrds)
+      rownames(my_annotation_df) <- paste(my_annotation_df[,1], my_annotation_df[,2], my_annotation_df[,3], sep="_")
+      my_annotation_df <- my_annotation_df[rownames(counts_filtered),]
+      print("generate annotation database")
+      anno_ix <- getAnnotations(as.matrix(my_annotation_df[,4:ncol(my_annotation_df)]), rowRanges = rowRanges(counts_filtered))
+      save(anno_ix,file=paste0(outdir, "/chromvar/", opname, ".anno_ix.Rdata"))
+      # get background
+      print("build background")
+      bg <- getBackgroundPeaks(object = tcga_counts_filtered_clean)
       print("Computing Deviation")
       dev <- computeDeviations(object = counts_filtered, annotations = anno_ix, background_peaks = bg)
     } else {
@@ -130,6 +180,7 @@ run_chromvar=function(peakrds,
     write.table(z.scores, file=paste0(outdir, "/chromvar/", opname, ".Zscore.txt"), col.names=T, row.names=T, sep="\t", quote=F)
     write.table(dev.scores, file=paste0(outdir, "/chromvar/", opname, ".Deviations.txt"), col.names=T, row.names=T, sep="\t", quote=F)
 
+    write.table("/cluster/home/julian/temp/SOLID/")
     #----------------------------------------------------------------
     ## compute variablity
     #----------------------------------------------------------------
