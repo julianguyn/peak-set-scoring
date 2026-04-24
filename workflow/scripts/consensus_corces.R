@@ -245,8 +245,9 @@ addReproduciblePeakSet <- function(
 # Get directories
 ####################################################################
 args <- commandArgs(trailingOnly = TRUE)
-input = args[1]
-outdir = args[2]
+input1 = args[1]
+input2 = args[2]
+outdir = args[3]
 
 # Create Output Directory
 outDir <- file.path(paste0(outdir, "/PeakCalls"))
@@ -257,11 +258,14 @@ dir.create(outSubDir, showWarnings = FALSE, recursive = TRUE)
 dir.create(outBedDir, showWarnings = FALSE, recursive = TRUE)
 
 # Summit lists
-outSummitList1 <- list.files(input,pattern ="_summits.bed$",full.names = TRUE)
-summitNamesList1 <- gsub("_summits.bed","",list.files(input,pattern ="_summits.bed$"))
+outSummitList1 <- list.files(input1,pattern ="_summits.bed$",full.names = TRUE)
+summitNamesList1 <- gsub("_summits.bed","",list.files(input1,pattern ="_summits.bed$"))
 
-outSummitList<-outSummitList1
-summitNamesList<-summitNamesList1
+outSummitList2 <- list.files(input2,pattern ="_summits.bed$",full.names = TRUE)
+summitNamesList2 <- gsub("_summits.bed","",list.files(input2,pattern ="_summits.bed$"))
+
+outSummitList<-c(outSummitList1, outSummitList2)
+summitNamesList<-c(summitNamesList1, summitNamesList2)
 
 names(outSummitList)<-summitNamesList
 
