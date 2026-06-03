@@ -3,6 +3,10 @@ suppressPackageStartupMessages({
     library(data.table)
     library(parallel)
 })
+
+options(BiocManager.check_version = FALSE)
+options(timeout = 3)
+
 ####################################################################
 # Peak Set Creation Methods
 ####################################################################

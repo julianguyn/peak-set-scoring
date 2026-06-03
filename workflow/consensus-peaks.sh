@@ -24,9 +24,10 @@ tcga_summit="/cluster/projects/bhklab/rawdata/BCaATAC/TCGA/summits"
 #tcga_pdx_outdir="../../data/results/TCGA/consensus_pdx"
 tcga_cell_pdx_outdir="../../data/results/TCGA_cell_PDX/consensus"
 
-module load R
 #Rscript consensus_corces.R $cell_summit $cell_outdir
 #Rscript consensus_corces.R $pdx_summit $pdx_outdir
 #Rscript consensus_corces.R $cf_all_summit $cf_all_outdir
+
+conda activate ARCHEscoring
 
 Rscript consensus_corces.R $tcga_summit $cell_summit $pdx_summit $tcga_cell_pdx_outdir
