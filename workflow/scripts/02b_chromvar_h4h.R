@@ -90,7 +90,7 @@ run_chromvar=function(peakrds,
     fragment_counts <- addGCBias(fragment_counts, genome = BSgenome.Hsapiens.UCSC.hg38)
     counts_filtered <- filterPeaks(fragment_counts,min_fragments_per_peak = 1, non_overlapping = TRUE)
     saveRDS(counts_filtered,file=paste0(outdir, "/chromvar/", opname, ".counts_filtered.rds"))
-    save(counts_filtered,file=paste0(outdir, "/chromvar/", opname, ".counts_filtered.RData"))
+    save(counts_filtered,file=paste0(outdir, "/chromvar/", opname, ".counts_filtered.Rdata"))
     rm(fragment_counts)
 
     # #----------------------------------------------------------------
