@@ -31,12 +31,11 @@ source("scripts/chromvar.helper.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if (length(args)==5) {
+if (length(args)==4) {
   peaksbinarymat <- as.character(args[1])
   peaksbinarymatrepeats <- as.character(args[2])
   opname <- as.character(args[3])
   outdir <- as.character(args[4])
-  background <- as.character(args[5])
 
 } else if (length(args)==0) {
   stop("Please provide the following arguments - Merged peak file, Directory containing all peak files, pattern to identify peak files,
@@ -111,67 +110,8 @@ run_chromvar=function(peakrds,
     #----------------------------------------------------------------
     set.seed(2017)
 
-    # get background
-    if (background != "") {
-      print("Loading in background")
-      tcga_counts_filtered <- readRDS(background)
-      # get common peaks
-      common_peaks <- intersect(rownames(counts_filtered), rownames(tcga_counts_filtered))
-      print(paste("Keeping", length(common_peaks), "common peaks"))
-      counts_filtered <- counts_filtered[common_peaks,]
-      tcga_counts_filtered <- tcga_counts_filtered[common_peaks,]
-      # rebuild
-      cbias <- rowData(counts_filtered)$bias
-      cpeaks <- rownames(counts_filtered)
-      cpeaks <- gsub("^(chr[^_]+)_([0-9]+)_([0-9]+)$", "\\1:\\2-\\3", cpeaks)
-      cgr <- GRanges(cpeaks)
-      mcols(cgr)$bias <- cbias
-      print("checking counts_filtered -- after rebuild")
-      counts_filtered <- SummarizedExperiment(
-        assays    = list(counts = assay(counts_filtered, "counts")),
-        rowRanges = cgr,
-        colData   = colData(counts_filtered)
-      )
-      print(length(rowRanges(counts_filtered)))
-      print(nrow(assay(counts_filtered)))
-      print(head(rownames(counts_filtered)))
-      validObject(counts_filtered)
-      
-      #rebuild
-      cbias <- rowData(tcga_counts_filtered)$bias
-      cpeaks <- rownames(tcga_counts_filtered)
-      cpeaks <- gsub("^(chr[^_]+)_([0-9]+)_([0-9]+)$", "\\1:\\2-\\3", cpeaks)
-      cgr <- GRanges(cpeaks)
-      mcols(cgr)$bias <- cbias
-      print("checking tcga -- after rebuild")
-      tcga_counts_filtered_clean <- SummarizedExperiment(
-        assays    = list(counts = assay(tcga_counts_filtered, "counts")),
-        rowRanges = cgr,
-        colData   = colData(tcga_counts_filtered)
-      )
-      print(length(rowRanges(tcga_counts_filtered_clean)))
-      print(nrow(assay(tcga_counts_filtered_clean)))
-      print(head(rownames(tcga_counts_filtered_clean)))
-      validObject(tcga_counts_filtered_clean)
-
-      # rebuild annotations
-      print("rebuilding annotations")
-      my_annotation_df <- readRDS(repeatrds)
-      rownames(my_annotation_df) <- paste(my_annotation_df[,1], my_annotation_df[,2], my_annotation_df[,3], sep="_")
-      my_annotation_df <- my_annotation_df[rownames(counts_filtered),]
-      print("generate annotation database")
-      anno_ix <- getAnnotations(as.matrix(my_annotation_df[,4:ncol(my_annotation_df)]), rowRanges = rowRanges(counts_filtered))
-      save(anno_ix,file=paste0(outdir, "/chromvar/", opname, ".anno_ix.Rdata"))
-      # get background
-      print("build background")
-      bg <- getBackgroundPeaks(object = tcga_counts_filtered_clean)
-      print("Computing Deviation")
-      dev <- computeDeviations(object = counts_filtered, annotations = anno_ix, background_peaks = bg)
-    } else {
-      print("Computing Deviation")
-      dev <- computeDeviations(object = counts_filtered, annotations = anno_ix)
-    }
-
+    print("Computing Deviation")
+    dev <- computeDeviations(object = counts_filtered, annotations = anno_ix)
     save(dev,file=paste0(outdir, "/chromvar/", opname, ".devobj.Rdata"))
 
     z.scores = deviationScores(dev) ## deviation Z-score
@@ -180,7 +120,6 @@ run_chromvar=function(peakrds,
     write.table(z.scores, file=paste0(outdir, "/chromvar/", opname, ".Zscore.txt"), col.names=T, row.names=T, sep="\t", quote=F)
     write.table(dev.scores, file=paste0(outdir, "/chromvar/", opname, ".Deviations.txt"), col.names=T, row.names=T, sep="\t", quote=F)
 
-    write.table("/cluster/home/julian/temp/SOLID/")
     #----------------------------------------------------------------
     ## compute variablity
     #----------------------------------------------------------------
