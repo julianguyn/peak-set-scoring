@@ -26,7 +26,7 @@ pancancer_summit="/cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/dat
 #cf_all_outdir="../../data/results/cfDNA/consensus-allSamples"
 #tcga_cell_outdir="../../data/results/TCGA/consensus_cell"
 #tcga_pdx_outdir="../../data/results/TCGA/consensus_pdx"
-tcga_cell_pdx_outdir="../../data/results/TCGA-pancancer/consensus"
+tcga_pancancer_outdir="../../data/results/TCGA-pancancer/consensus"
 
 #Rscript consensus_corces.R $cell_summit $cell_outdir
 #Rscript consensus_corces.R $pdx_summit $pdx_outdir
@@ -35,4 +35,4 @@ tcga_cell_pdx_outdir="../../data/results/TCGA-pancancer/consensus"
 conda activate ARCHEscoring
 
 #Rscript consensus_corces.R $tcga_summit $cell_summit $pdx_summit $tcga_cell_pdx_outdir
-Rscript consensus_corces.R $pancancer_summit $tcga_cell_pdx_outdir
+Rscript consensus_corces.R $pancancer_summit $tcga_pancancer_outdir

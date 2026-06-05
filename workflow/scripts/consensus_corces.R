@@ -249,14 +249,7 @@ addReproduciblePeakSet <- function(
 # Get directories
 ####################################################################
 args <- commandArgs(trailingOnly = TRUE)
-
-# Create Output Directory
-outDir <- file.path(paste0(outdir, "/PeakCalls"))
-outSubDir <- file.path(paste0(outdir, "/ReplicateCalls"))
-outBedDir <- file.path(paste0(outdir, "/InsertionBeds"))
-dir.create(outDir, showWarnings = FALSE, recursive = TRUE)
-dir.create(outSubDir, showWarnings = FALSE, recursive = TRUE)
-dir.create(outBedDir, showWarnings = FALSE, recursive = TRUE)
+print(length(args))
 
 # modify here!!!!
 if (length(args)==4) {
@@ -264,6 +257,14 @@ if (length(args)==4) {
   input2 = args[2]
   input3 = args[3]
   outdir = args[4]
+
+  # Create Output Directory
+  outDir <- file.path(paste0(outdir, "/PeakCalls"))
+  outSubDir <- file.path(paste0(outdir, "/ReplicateCalls"))
+  outBedDir <- file.path(paste0(outdir, "/InsertionBeds"))
+  dir.create(outDir, showWarnings = FALSE, recursive = TRUE)
+  dir.create(outSubDir, showWarnings = FALSE, recursive = TRUE)
+  dir.create(outBedDir, showWarnings = FALSE, recursive = TRUE)
 
   outSummitList1 <- list.files(input1,pattern ="_summits.bed$",full.names = TRUE)
   summitNamesList1 <- gsub("_summits.bed","",list.files(input1,pattern ="_summits.bed$"))
@@ -281,6 +282,14 @@ if (length(args)==4) {
 } else {
   input = args[1]
   outdir = args[2]
+
+  # Create Output Directory
+  outDir <- file.path(paste0(outdir, "/PeakCalls"))
+  outSubDir <- file.path(paste0(outdir, "/ReplicateCalls"))
+  outBedDir <- file.path(paste0(outdir, "/InsertionBeds"))
+  dir.create(outDir, showWarnings = FALSE, recursive = TRUE)
+  dir.create(outSubDir, showWarnings = FALSE, recursive = TRUE)
+  dir.create(outBedDir, showWarnings = FALSE, recursive = TRUE)
 
   outSummitList <- list.files(input,pattern ="_summits.bed$",full.names = TRUE)
   summitNamesList <- gsub("_summits.bed","",list.files(input,pattern ="_summits.bed$"))
