@@ -1,0 +1,9 @@
+opname: "tcga_pancancer"
+metadatafile: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/metadata/tcga_pancancer_metadata.txt
+consensusfile: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/results/TCGA-pancancer/consensus/PeakCalls_unionPeakSet.bed
+PEAKS_DIR: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/rawdata/TCGA-pancancer/narrowpeaks
+peaks_extension: "_peaks.narrowPeak"
+hg38TEs_DIR: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/procdata/ARCHEs/50k_sites/
+hg38TEs_extension: ".bed"
+RESULTS_DIR: "/cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/results/TCGA-pancancer
+qval: 0.01

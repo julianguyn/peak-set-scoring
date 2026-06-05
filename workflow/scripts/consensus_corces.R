@@ -249,10 +249,6 @@ addReproduciblePeakSet <- function(
 # Get directories
 ####################################################################
 args <- commandArgs(trailingOnly = TRUE)
-input1 = args[1]
-input2 = args[2]
-input3 = args[3]
-outdir = args[4]
 
 # Create Output Directory
 outDir <- file.path(paste0(outdir, "/PeakCalls"))
@@ -262,18 +258,33 @@ dir.create(outDir, showWarnings = FALSE, recursive = TRUE)
 dir.create(outSubDir, showWarnings = FALSE, recursive = TRUE)
 dir.create(outBedDir, showWarnings = FALSE, recursive = TRUE)
 
-# Summit lists
-outSummitList1 <- list.files(input1,pattern ="_summits.bed$",full.names = TRUE)
-summitNamesList1 <- gsub("_summits.bed","",list.files(input1,pattern ="_summits.bed$"))
+# modify here!!!!
+if (length(args)==4) {
+  input1 = args[1]
+  input2 = args[2]
+  input3 = args[3]
+  outdir = args[4]
 
-outSummitList2 <- list.files(input2,pattern ="_summits.bed$",full.names = TRUE)
-summitNamesList2 <- gsub("_summits.bed","",list.files(input2,pattern ="_summits.bed$"))
+  outSummitList1 <- list.files(input1,pattern ="_summits.bed$",full.names = TRUE)
+  summitNamesList1 <- gsub("_summits.bed","",list.files(input1,pattern ="_summits.bed$"))
 
-outSummitList3 <- list.files(input3,pattern ="_summits.bed$",full.names = TRUE)
-summitNamesList3 <- gsub("_summits.bed","",list.files(input3,pattern ="_summits.bed$"))
+  outSummitList2 <- list.files(input2,pattern ="_summits.bed$",full.names = TRUE)
+  summitNamesList2 <- gsub("_summits.bed","",list.files(input2,pattern ="_summits.bed$"))
 
-outSummitList<-c(outSummitList1, outSummitList2, outSummitList3)
-summitNamesList<-c(summitNamesList1, summitNamesList2, summitNamesList3)
+  outSummitList3 <- list.files(input3,pattern ="_summits.bed$",full.names = TRUE)
+  summitNamesList3 <- gsub("_summits.bed","",list.files(input3,pattern ="_summits.bed$"))
+
+  outSummitList<-c(outSummitList1, outSummitList2, outSummitList3)
+  summitNamesList<-c(summitNamesList1, summitNamesList2, summitNamesList3)
+
+# one summit dir
+} else {
+  input = args[1]
+  outdir = args[2]
+
+  outSummitList <- list.files(input,pattern ="_summits.bed$",full.names = TRUE)
+  summitNamesList <- gsub("_summits.bed","",list.files(input,pattern ="_summits.bed$"))
+}
 
 names(outSummitList)<-summitNamesList
 
