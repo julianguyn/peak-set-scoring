@@ -252,12 +252,13 @@ args <- commandArgs(trailingOnly = TRUE)
 print(length(args))
 
 # modify here!!!!
-if (length(args)==5) {
+if (length(args)==3) {
   input1 = args[1]
   input2 = args[2]
-  input3 = args[3]
-  input4 = args[4]
-  outdir = args[5]
+  outdir = args[3]
+  #input3 = args[3]
+  #input4 = args[4]
+  #outdir = args[5]
 
   # Create Output Directory
   outDir <- file.path(paste0(outdir, "/PeakCalls"))
@@ -273,14 +274,16 @@ if (length(args)==5) {
   outSummitList2 <- list.files(input2,pattern ="_summits.bed$",full.names = TRUE)
   summitNamesList2 <- gsub("_summits.bed","",list.files(input2,pattern ="_summits.bed$"))
 
-  outSummitList3 <- list.files(input3,pattern ="_summits.bed$",full.names = TRUE)
-  summitNamesList3 <- gsub("_summits.bed","",list.files(input3,pattern ="_summits.bed$"))
+  #outSummitList3 <- list.files(input3,pattern ="_summits.bed$",full.names = TRUE)
+  #summitNamesList3 <- gsub("_summits.bed","",list.files(input3,pattern ="_summits.bed$"))
 
-  outSummitList4 <- list.files(input4,pattern ="_summits.bed$",full.names = TRUE)
-  summitNamesList4 <- gsub("_summits.bed","",list.files(input4,pattern ="_summits.bed$"))
+  #outSummitList4 <- list.files(input4,pattern ="_summits.bed$",full.names = TRUE)
+  #summitNamesList4 <- gsub("_summits.bed","",list.files(input4,pattern ="_summits.bed$"))
 
-  outSummitList<-c(outSummitList1, outSummitList2, outSummitList3, outSummitList4)
-  summitNamesList<-c(summitNamesList1, summitNamesList2, summitNamesList3, summitNamesList4)
+  #outSummitList<-c(outSummitList1, outSummitList2, outSummitList3, outSummitList4)
+  #summitNamesList<-c(summitNamesList1, summitNamesList2, summitNamesList3, summitNamesList4)
+  outSummitList<-c(outSummitList1, outSummitList2)
+  summitNamesList<-c(summitNamesList1, summitNamesList2)
 
 # one summit dir
 } else {
