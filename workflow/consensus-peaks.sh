@@ -14,7 +14,7 @@
 cd scripts
 
 #cell_summit="../../data/rawdata/ATACSeq/cell_lines/summits"
-pdx_summit="../../data/rawdata/ATACSeq/PDXs/summits"
+#pdx_summit="../../data/rawdata/ATACSeq/PDXs/summits"
 #pdo_summit="../../data/rawdata/ATACSeq/PDO/summits"
 #cf_summit="/cluster/projects/bhklab/rawdata/BCaATAC/ATAC-cfDNA/summits"
 #cf_all_summit="/cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/rawdata/ATAC-cfDNA/summits-allSamples"
@@ -30,7 +30,8 @@ tcga_summit="/cluster/projects/bhklab/rawdata/BCaATAC/TCGA/summits"
 #tcga_cell_pdx_outdir="../../data/results/TCGA_cell_PDX/consensus/"
 #tcga_cell_pdx_pdo_outdir="../../data/results/TCGA_cell_PDX_PDO/consensus/"
 #tcga_pancancer_outdir="../../data/results/TCGA-pancancer/consensus"
-tcga_pdx_outdir="../../data/results/TCGA_PDX/consensus/"
+#tcga_pdx_outdir="../../data/results/TCGA_PDX/consensus/"
+tcga_cell_outdir="../../data/results/TCGA_cell/consensus/"
 
 #Rscript consensus_corces.R $cell_summit $cell_outdir
 #Rscript consensus_corces.R $pdx_summit $pdx_outdir
@@ -40,4 +41,5 @@ conda activate ARCHEscoring
 
 #Rscript consensus_corces.R $tcga_summit $cell_summit $pdx_summit $pdo_summit $tcga_cell_pdx_pdo_outdir
 #Rscript consensus_corces.R $pancancer_summit $tcga_pancancer_outdir
-Rscript consensus_corces.R $tcga_summit $pdx_summit $tcga_pdx_outdir
+#Rscript consensus_corces.R $tcga_summit $pdx_summit $tcga_pdx_outdir
+Rscript consensus_corces.R $tcga_summit $cell_summit $tcga_cell_outdir

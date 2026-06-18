@@ -1,0 +1,9 @@
+opname: "cell_tcga"
+metadatafile: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/metadata/cell_tcga_metadata.txt
+consensusfile: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/results/TCGA_cell/consensus/PeakCalls_unionPeakSet.bed
+PEAKS_DIR: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/rawdata/ATACSeq/cell_pdx_tcga/
+peaks_extension: ".narrowPeak"
+hg38TEs_DIR: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/procdata/ARCHEs/50k_sites/
+hg38TEs_extension: ".bed"
+RESULTS_DIR: "/cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/results/TCGA_cell"
+qval: 0.01
