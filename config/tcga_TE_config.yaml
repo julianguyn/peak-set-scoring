@@ -1,9 +1,9 @@
-opname: "tcga_TF"
+opname: "tcga_TE"
 metadatafile: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/metadata/tcga_metadata.txt
 consensusfile: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/results/TCGA/consensus/PeakCalls_unionPeakSet.bed
 PEAKS_DIR: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/rawdata/TCGA
 peaks_extension: "_peaks.narrowPeak"
-hg38TEs_DIR: /cluster/projects/bhklab/projects/BCaATAC/Griffin/data/procdata/TF/ARCHE_TFs/cleanbeds/
+hg38TEs_DIR: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/procdata/TEs/
 hg38TEs_extension: ".bed"
-RESULTS_DIR: "/cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/results/TCGA_TFs"
+RESULTS_DIR: "/cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/results/TCGA_TEs"
 qval: 0.01
