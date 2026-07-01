@@ -1,0 +1,9 @@
+opname: "tcga_TE_families"
+metadatafile: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/metadata/tcga_metadata.txt
+consensusfile: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/results/TCGA/consensus/PeakCalls_unionPeakSet.bed
+PEAKS_DIR: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/rawdata/TCGA
+peaks_extension: "_peaks.narrowPeak"
+hg38TEs_DIR: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/procdata/TE_families/beds/
+hg38TEs_extension: ".bed"
+RESULTS_DIR: "/cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/results/TE_families"
+qval: 0.01

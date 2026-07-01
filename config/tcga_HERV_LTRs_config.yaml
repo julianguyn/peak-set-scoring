@@ -1,0 +1,9 @@
+opname: "tcga_HERV_LTRs"
+metadatafile: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/metadata/tcga_metadata.txt
+consensusfile: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/results/TCGA/consensus/PeakCalls_unionPeakSet.bed
+PEAKS_DIR: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/rawdata/TCGA
+peaks_extension: "_peaks.narrowPeak"
+hg38TEs_DIR: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/procdata/HERVs_LTRs/beds/
+hg38TEs_extension: ".bed"
+RESULTS_DIR: "/cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/results/TCGA_HERVs_LTRs"
+qval: 0.01
