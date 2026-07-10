@@ -1,0 +1,9 @@
+opname: "pdo_tnbc"
+metadatafile: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/metadata/pdo_tnbc_metadata.txt
+consensusfile: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/results/PDO_TNBC/consensus/PeakCalls_unionPeakSet.bed
+PEAKS_DIR: /cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/rawdata/ATACSeq/PDO/
+peaks_extension: ".narrowPeak"
+hg38TEs_DIR: /cluster/projects/bhklab/projects/BCaATAC/BCa_ARCHE_Scoring/data/procdata/ARCHEs/50k_sites/
+hg38TEs_extension: ".bed"
+RESULTS_DIR: "/cluster/projects/bhklab/projects/BCaATAC/peak-set-scoring/data/results/PDO_TNBC"
+qval: 0.01
